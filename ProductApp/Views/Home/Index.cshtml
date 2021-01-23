@@ -1,0 +1,122 @@
+﻿@model List<ProductApp.Models.ReviewModels>
+
+
+
+<h2 style="text-align:left">Phone Lense Magnifier Set</h2>
+
+<div class="container" style="padding-top:50px">
+    <button style="float:right"> Buy Now</button>
+    <div class="mySlides">
+        <div class="numbertext">1 / 5</div>
+        <img src="~/Images/blackSet.jpg" style="width:50%" />
+    </div>
+
+    <div class="mySlides">
+        <div class="numbertext">2 / 5</div>
+        <img src="~/Images/roseSet.jpg" style="width:50%">
+    </div>
+
+    <div class="mySlides">
+        <div class="numbertext">3 / 5</div>
+        <img src="~/Images/phoneBlack.jpg" style="width:50%">
+    </div>
+
+    <div class="mySlides">
+        <div class="numbertext">4 / 5</div>
+        <img src="~/Images/composition.jpg" style="width:50%">
+    </div>
+
+    <div class="mySlides">
+        <div class="numbertext">5 / 5</div>
+        <img src="~/Images/sideView.jpg" style="width:50%">
+    </div>
+
+    <a class="prev" onclick="plusSlides(-1)">❮</a>
+    <a class="next" onclick="plusSlides(1)">❯</a>
+
+    <div class="caption-container">
+        <p id="caption"></p>
+    </div>
+
+    <div class="row">
+        <div class="column">
+            <img class="demo cursor" src="~/Images/blackSet.jpg" style="width:100%" onclick="currentSlide(1)" alt="Black Lense Set">
+        </div>
+        <div class="column">
+            <img class="demo cursor" src="~/Images/roseSet.jpg" style="width:100%" onclick="currentSlide(2)" alt="Rose Lense Set">
+        </div>
+        <div class="column">
+            <img class="demo cursor" src="~/Images/phoneBlack.jpg" style="width:100%" onclick="currentSlide(3)" alt="Black Lense Front-View">
+        </div>
+        <div class="column">
+            <img class="demo cursor" src="~/Images/composition.jpg" style="width:100%" onclick="currentSlide(4)" alt="Lense Composition">
+        </div>
+        <div class="column">
+            <img class="demo cursor" src="~/Images/sideView.jpg" style="width:100%" onclick="currentSlide(5)" alt="Black Lense Side-View">
+        </div>
+    </div>
+</div>
+
+
+<div style="padding-top:200px">
+    <table>
+        <tr style="height: 100px;">
+            <th>Reviews</th>
+
+        </tr>
+        <tr>
+            <td>Alfreds Futterkiste</td>
+
+        </tr>
+        <tr>
+            <td>Centro comercial Moctezuma</td>
+
+        </tr>
+        <tr>
+            <td>Ernst Handel</td>
+
+        </tr>
+        <tr>
+            <td>Island Trading</td>
+
+        </tr>
+    </table>
+</div>
+
+@*@Html.TextBoxFor(m => m.Description, new { @class = "reviewDescription" })*@
+@*@Html.TextAreaFor("Description", "This is dummy description.", new { @class = "reviewDescription", @maxlength = "10"})*@
+
+
+@*<textarea id="Description" name="Description" rows="2" cols="20">This is dummy description.</textarea>*@
+
+<script>
+    var slideIndex = 1;
+    showSlides(slideIndex);
+
+    function plusSlides(n) {
+        showSlides(slideIndex += n);
+    }
+
+    function currentSlide(n) {
+        showSlides(slideIndex = n);
+    }
+
+    function showSlides(n) {
+        var i;
+        var slides = document.getElementsByClassName("mySlides");
+        var dots = document.getElementsByClassName("demo");
+        var captionText = document.getElementById("caption");
+        if (n > slides.length) { slideIndex = 1 }
+        if (n < 1) { slideIndex = slides.length }
+        for (i = 0; i < slides.length; i++) {
+            slides[i].style.display = "none";
+        }
+        for (i = 0; i < dots.length; i++) {
+            dots[i].className = dots[i].className.replace(" active", "");
+        }
+        slides[slideIndex - 1].style.display = "block";
+        dots[slideIndex - 1].className += " active";
+        captionText.innerHTML = dots[slideIndex - 1].alt;
+    }
+</script>
+

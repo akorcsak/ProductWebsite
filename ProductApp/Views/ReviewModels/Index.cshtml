@@ -1,0 +1,224 @@
+﻿@model IEnumerable<ProductApp.Models.ReviewModels>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+<h2 style="text-align:left">Phone Lense Magnifier Set</h2>
+
+
+<div class="container" style="padding-top:50px">
+    
+    <div class="mySlides">
+        <div class="numbertext">1 / 5</div>
+        <img src="~/Images/blackSet.jpg" style="width:35%" />
+        
+    </div>
+
+    <div class="mySlides">
+        <div class="numbertext">2 / 5</div>
+        <img src="~/Images/roseSet.jpg" style="width:35%">
+    </div>
+
+    <div class="mySlides">
+        <div class="numbertext">3 / 5</div>
+        <img src="~/Images/phoneBlack.jpg" style="width:35%">
+    </div>
+
+    <div class="mySlides">
+        <div class="numbertext">4 / 5</div>
+        <img src="~/Images/composition.jpg" style="width:35%">
+    </div>
+
+    <div class="mySlides">
+        <div class="numbertext">5 / 5</div>
+        <img src="~/Images/sideView.jpg" style="width:35%">
+    </div>
+
+    <a class="prev" onclick="plusSlides(-1)">❮</a>
+    <a class="next" onclick="plusSlides(1)">❯</a>
+
+    <div class="caption-container">
+        <p id="caption"></p>
+    </div>
+
+    <div class="row">
+        <div class="column">
+            <img class="demo cursor" src="~/Images/blackSet.jpg" style="width:100%" onclick="currentSlide(1)" alt="Black Lense Set">
+        </div>
+        <div class="column">
+            <img class="demo cursor" src="~/Images/roseSet.jpg" style="width:100%" onclick="currentSlide(2)" alt="Rose Lense Set">
+        </div>
+        <div class="column">
+            <img class="demo cursor" src="~/Images/phoneBlack.jpg" style="width:100%" onclick="currentSlide(3)" alt="Black Lense Front-View">
+        </div>
+        <div class="column">
+            <img class="demo cursor" src="~/Images/composition.jpg" style="width:100%" onclick="currentSlide(4)" alt="Lense Composition">
+        </div>
+        <div class="column">
+            <img class="demo cursor" src="~/Images/sideView.jpg" style="width:100%" onclick="currentSlide(5)" alt="Black Lense Side-View">
+        </div>
+    </div>
+</div>
+
+<div style="padding-top: 50px">
+    <button onclick="displayBanner()" style="float:left; margin-left: 130px; padding-left: 50px; padding-right: 50px">Buy Now</button>
+
+    <div style="padding-top:50px;">
+        <div id="banner" class="alert alert-success alert-dismissible" role="alert" style="display:none;width:40%">
+            Product has been purchased! (This feature is currently under development)
+        </div>
+    </div>
+
+</div>
+
+@{
+    int reviewCount = 0;
+    int numberOfReviews = 0;
+}
+
+@foreach (var item in Model)
+{
+
+
+        reviewCount += item.Rating;
+        numberOfReviews += 1;
+
+}
+
+
+@{
+    int total = 0;
+
+    try
+    {
+        total = reviewCount / numberOfReviews;
+    }
+
+    catch (Exception)
+    {
+        total = 0;
+    }
+}
+
+<div style="padding-top:200px">
+    <table class="table">
+        @*<tr style="height: 100px;">
+                <th>Reviews</th>
+
+            </tr>*@
+        <tr style="height: 100px">
+            <th colspan="4">
+                <h2>Customer Reviews</h2>
+                <br />
+                @for (var i = 0; i < total; i++)
+                {
+                    <span class="fa fa-star checked"></span>
+                }
+
+
+                @for (var i = 5 - total; i > 0; i--)
+                {
+                    <span class="fa fa-star"></span>
+                }
+
+                Based on @numberOfReviews reviews
+                <div style="float:right">
+                    @Html.ActionLink("Create New", "Create")
+                </div>
+            </th>
+
+
+            @*<th>
+                    @Html.DisplayNameFor(model => model.CustomerName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Rating)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Description)
+                </th>*@
+
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CustomerName)
+                </td>
+                <td>
+                    @* @Html.DisplayFor(modelItem => item.Rating)*@
+
+
+                    @for (var i = 0; i < item.Rating; i++)
+                    {
+                        <span class="fa fa-star checked"></span>
+                    }
+
+
+                    @for (var i = 5 - item.Rating; i > 0; i--)
+                    {
+                        <span class="fa fa-star"></span>
+                    }
+
+                    @*<span class="fa fa-star checked"></span>
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star"></span>
+                        <span class="fa fa-star"></span>*@
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Description)
+                </td>
+                <td>
+                    <div style="float:right">
+                        @Html.ActionLink("Edit", "Edit", new { id = item.id }) |
+                        @*@Html.ActionLink("Details", "Details", new { id = item.id }) |*@
+                        @Html.ActionLink("Delete", "Delete", new { id = item.id })
+                    </div>
+                </td>
+            </tr>
+        }
+
+    </table>
+</div>
+
+
+<script>
+    var slideIndex = 1;
+    showSlides(slideIndex);
+
+    function plusSlides(n) {
+        showSlides(slideIndex += n);
+    }
+
+    function currentSlide(n) {
+        showSlides(slideIndex = n);
+    }
+
+    function showSlides(n) {
+        var i;
+        var slides = document.getElementsByClassName("mySlides");
+        var dots = document.getElementsByClassName("demo");
+        var captionText = document.getElementById("caption");
+        if (n > slides.length) { slideIndex = 1 }
+        if (n < 1) { slideIndex = slides.length }
+        for (i = 0; i < slides.length; i++) {
+            slides[i].style.display = "none";
+        }
+        for (i = 0; i < dots.length; i++) {
+            dots[i].className = dots[i].className.replace(" active", "");
+        }
+        slides[slideIndex - 1].style.display = "block";
+        dots[slideIndex - 1].className += " active";
+        captionText.innerHTML = dots[slideIndex - 1].alt;
+    }
+
+    function displayBanner() {
+        $("#banner").show();
+    }
+
+</script>
